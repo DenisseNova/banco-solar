@@ -45,16 +45,18 @@ http.createServer(async (req, res) => {
       res.end("Ocurrio un dilema en el servidor. " + e);
     }
   }
-  //edita un usuario NO FUNCIONA, no encuentro el error sintaxis y no arroja error
-  if (req.url == "/usuario" && req.method == "PUT") {
+  //edita un usuario
+  if (req.url.startsWith("/usuario") && req.method == "PUT") {
     let body = "";
     req.on("data", (chunck) => {
       body = chunck.toString();
     });
     req.on("end", async () => {
+      let { id } = url.parse(req.url, true).query;
+
       const usuario = JSON.parse(body);
       try {
-        const result = await editUsuario(usuario);
+        const result = await editUsuario({ ...usuario, id });
         res.statusCode = 200;
         res.end(JSON.stringify(result));
       } catch (e) {
@@ -63,7 +65,7 @@ http.createServer(async (req, res) => {
       }
     });
   }
-  //eliminar un usuario NO FUNCIONA, no encuentro error de sintaxis pero si lanza error al /usuario?id
+  //eliminar un usuario 
   if (req.url.startsWith("/usuario?id") && req.method == "DELETE") {
     try {
       let { id } = url.parse(req.url, true).query;

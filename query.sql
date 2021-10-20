@@ -16,3 +16,5 @@ CREATE TABLE public.transferencias (
 	CONSTRAINT transferencias_fk FOREIGN KEY (emisor) REFERENCES public.usuarios(id),
 	CONSTRAINT transferencias_fk_1 FOREIGN KEY (receptor) REFERENCES public.usuarios(id)
 );
+
+ALTER TABLE public.usuarios ADD CONSTRAINT balance_check CHECK ((balance >= 0));

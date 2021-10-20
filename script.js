@@ -4,7 +4,7 @@ const pool = new Pool({
   user: "postgres",
   host: "localhost",
   password: "",
-  database: "bancosolar",
+  database: "banco-solar",
   port: 5432,
   max: 20,
   idleTimeoutMillis: 5000,
@@ -33,6 +33,7 @@ const getUsuarios = async () => {
 
 const editUsuario = async (usuario) => {
   const values = Object.values(usuario)
+  console.log(values)
   const consulta = {
     text: "UPDATE usuarios SET nombre = $1, balance = $2 WHERE id = $3 RETURNING *",
     values,
