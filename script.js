@@ -54,53 +54,6 @@ const eliminarUsuario = async (id) => {
   return result.rows
 };
 
-/*
-const nuevaTransferencia = async (emisor, receptor, monto ) => {
-  pool.connect( async (error_conexion, client, release) => {
-
-    if(error_conexion) {
-      console.log(error_conexion);
-    } else {
-
-      try {
-        await client.query('BEGIN');
-        const sacar = `UPDATE usuarios SET balance = balance - ${monto} WHERE id = ${emisor} RETURNING *;`;
-        const descuento = await client.query(sacar);
-        console.log('DESCUENTO', descuento)
-        
-        
-
-        const abonar = `UPDATE usuarios SET balance = balance + ${monto} WHERE id = ${receptor} RETURNING *;`;
-        const acreditacion = await client.query(abonar);
-        console.log('ACREDITACION', acreditacion)
-
-        const date = new Date();
-        const ajuste = `INSERT INTO transferencias (emisor,receptor,monto) VALUES (${emisor},${receptor},${monto}) RETURNING *;`;
-        const transaccion = await client.query(ajuste);
-        console.log('TRANSACCION', transaccion)
-
-        console.log("Descuento realizado con éxito: ", descuento.rows[0]);
-        console.log("Acreditación realizada con éxito: ", acreditacion.rows[0]);
-        console.log("Transacción realizada con éxito: ", transaccion.rows[0]);
-        
-        await client.query('COMMIT');
-
-      } catch (e) {
-        await client.query('ROLLBACK');
-  
-        console.log("Error código: " + e.code);
-        console.log("Detalle del error: " + e.detail);
-        console.log("Tabla originaria del error: " + e.table);
-        console.log("Restricción violada en el campo: " + e.constraint);
-        console.log("Error: ", e);
-      }
-      release();
-      pool.end();
-    }
-      
-  })
-}*/
-
 const nuevaTransferencia = async (datos) => {
 
   try {
@@ -142,13 +95,5 @@ const consultarTransferencias = async () => {
       return error;
   }
 }
-
-pool.connect(async(error_conexion, client, release) => {
-  await client.query('BEGIN');
-
-});
-
-
-
 
 module.exports = { guardarUsuario, getUsuarios, editUsuario, eliminarUsuario, nuevaTransferencia, consultarTransferencias }
