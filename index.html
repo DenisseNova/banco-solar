@@ -280,8 +280,8 @@
               </tr>
          `);
 
-      $("#emisor").append(`<option value="${c.nombre}">${c.nombre}</option>`);
-      $("#receptor").append(`<option value="${c.nombre}">${c.nombre}</option>`);
+      $("#emisor").append(`<option value="${c.id}">${c.nombre}</option>`);
+      $("#receptor").append(`<option value="${c.id}">${c.nombre}</option>`);
     });
   };
 
@@ -299,10 +299,10 @@
     data.forEach((t) => {
       $(".transferencias").append(`
        <tr>
-         <td> ${formatDate(t[4])} </td>
-         <td> ${t[1]} </td>
-         <td> ${t[2]} </td>
-         <td> ${t[3]} </td>
+         <td> ${formatDate(t.fecha)} </td>
+         <td> ${t.emisor} </td>
+         <td> ${t.receptor} </td>
+         <td> ${t.monto} </td>
        </tr>
      `);
     });
